@@ -23,6 +23,7 @@ exports.up = async function (knex) {
 				.inTable("recipes")
 				.onDelete("RESTRICT")
 				.onUpdate("RESTRICT");
+			table.integer("step_number");
 			table
 				.integer("ingredient_id")
 				.unsigned()
