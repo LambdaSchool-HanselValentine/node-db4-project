@@ -15,13 +15,19 @@ exports.up = async function (knex) {
 		})
 		.createTable("steps", (table) => {
 			table.increments("step_id");
-			table.string("step_instructions").notNullable().unique();
-			table.integer("recipe_id");
+			table.string("step_instructions").notNullable();
+			table
+				.integer("recipe_id")
+				.unsigned()
+				.references("recipe_id")
+				.inTable("recipes")
+				.onDelete("RESTRICT")
+				.onUpdate("RESTRICT");
 			table
 				.integer("ingredient_id")
 				.unsigned()
-				.references("recipe_id")
-				.inTable("recipe")
+				.references("ingredient_id")
+				.inTable("ingredients")
 				.onDelete("RESTRICT")
 				.onUpdate("RESTRICT");
 			table
